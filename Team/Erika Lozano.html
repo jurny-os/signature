@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jurny Signature - Master Template</title>
+<style>
+  :root{
+    --bg:#1c2029;
+    --bg2:#171b23;
+    --text:#ffffff;
+    --muted:#c6cad4;
+    --purple:#6e40ff;
+    --purple2:#8d6bff;
+    --purple3:#c7b5fe;
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(110,64,255,.14), transparent 28%),
+      radial-gradient(circle at 80% 15%, rgba(199,181,254,.10), transparent 30%),
+      linear-gradient(135deg,var(--bg),var(--bg2));
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    padding:24px;
+  }
+
+  .sig{
+    position:relative;
+    width:100%;
+    max-width:720px;
+    border-radius:28px;
+    overflow:hidden;
+    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    backdrop-filter:blur(14px);
+  }
+
+  .sig::before{
+    content:"";
+    position:absolute;
+    inset:-30%;
+    background:
+      radial-gradient(circle, rgba(110,64,255,.18), transparent 35%),
+      radial-gradient(circle, rgba(199,181,254,.12), transparent 36%);
+    animation:floatGlow 8s ease-in-out infinite alternate;
+    pointer-events:none;
+  }
+
+  .sig::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(110deg, transparent 20%, rgba(255,255,255,.07) 50%, transparent 80%);
+    transform:translateX(-140%);
+    animation:shine 5.5s linear infinite;
+    pointer-events:none;
+  }
+
+  .grid{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:110px 1fr;
+    gap:22px;
+    padding:26px;
+  }
+
+  .logoWrap{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+  }
+
+  .logoLink{
+    text-decoration:none;
+  }
+
+  .logo{
+    width:96px;
+    height:96px;
+    border-radius:24px;
+    background:linear-gradient(135deg, rgba(110,64,255,.14), rgba(199,181,254,.14));
+    border:1px solid rgba(255,255,255,.10);
+    display:grid;
+    place-items:center;
+    box-shadow:0 0 0 1px rgba(255,255,255,.04) inset, 0 0 28px rgba(110,64,255,.14);
+    overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+
+  .logo:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 0 1px rgba(255,255,255,.04) inset, 0 0 34px rgba(110,64,255,.22);
+  }
+
+  .logo img{
+    width:68px;
+    height:auto;
+    display:block;
+  }
+
+  .name{
+    color:var(--text);
+    font-size:30px;
+    font-weight:800;
+    line-height:1.05;
+    margin:0;
+  }
+
+  .role{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  .tagline{
+    margin-top:14px;
+    display:inline-block;
+    font-size:14px;
+    font-weight:700;
+    background:linear-gradient(90deg, var(--purple3), #ffffff, var(--purple2), var(--purple3));
+    background-size:220% auto;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:tagMove 6s linear infinite;
+  }
+
+  .line{
+    margin:16px 0 18px;
+    width:100%;
+    max-width:330px;
+    height:3px;
+    border-radius:999px;
+    background:linear-gradient(90deg, transparent, var(--purple), var(--purple3), transparent);
+    background-size:200% auto;
+    animation:tagMove 4s linear infinite;
+  }
+
+  .details{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px 18px;
+  }
+
+  .item{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.5;
+  }
+
+  .item b{
+    display:block;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--purple3);
+    margin-bottom:2px;
+  }
+
+  .item a{
+    color:#fff;
+    text-decoration:none;
+  }
+
+  .footer{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:22px;
+    align-items:end;
+  }
+
+  .footer-block{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .footer-label{
+    color:var(--purple3);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+  }
+
+  .footer-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .company-block{
+    align-items:flex-end;
+  }
+
+  .company-block .footer-actions{
+    justify-content:flex-end;
+  }
+
+  .icon-link{
+    width:38px;
+    height:38px;
+    border-radius:999px;
+    display:grid;
+    place-items:center;
+    text-decoration:none;
+    color:var(--purple3);
+    border:1px solid rgba(199,181,254,.18);
+    background:rgba(199,181,254,.06);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+
+  .icon-link:hover{
+    transform:translateY(-3px) scale(1.04);
+    border-color:rgba(199,181,254,.55);
+    box-shadow:0 0 0 1px rgba(199,181,254,.18) inset, 0 0 24px rgba(110,64,255,.22);
+  }
+
+  .icon-link svg{
+    width:17px;
+    height:17px;
+    fill:currentColor;
+  }
+
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 18px;
+    border-radius:999px;
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:800;
+    font-size:13px;
+    background:linear-gradient(90deg, var(--purple), var(--purple2), var(--purple3));
+    box-shadow:0 10px 24px rgba(110,64,255,.24);
+    transition:transform .25s ease, box-shadow .25s ease;
+    margin-left:4px;
+  }
+
+  .cta:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 30px rgba(110,64,255,.32);
+  }
+
+  @keyframes shine { to { transform:translateX(140%); } }
+  @keyframes tagMove { to { background-position:220% center; } }
+  @keyframes floatGlow { 0%{transform:translate(-3%, -2%) scale(1)} 100%{transform:translate(3%, 2%) scale(1.08)} }
+
+  @media (max-width:640px){
+    .grid{grid-template-columns:1fr}
+    .logoWrap{justify-content:flex-start}
+    .details{grid-template-columns:1fr}
+    .footer{
+      grid-template-columns:1fr;
+      gap:18px;
+    }
+    .company-block{
+      align-items:flex-start;
+    }
+    .company-block .footer-actions{
+      justify-content:flex-start;
+    }
+    .cta{
+      margin-left:0;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="sig">
+    <div class="grid">
+      <div class="logoWrap">
+        <a class="logoLink" href="https://www.jurny.com" target="_blank" rel="noopener noreferrer" aria-label="Jurny website">
+          <div class="logo">
+            <img src="https://jurny-os.github.io/signature/Assets/jurny-logo-white.png" alt="Jurny logo">
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <h1 class="name">Erika Celi Lozano</h1>
+        <div class="role">Director of Brand & Client Experience </div>
+        <div class="tagline">Hospitality Powered by AI &amp; Automation</div>
+        <div class="line"></div>
+
+        <div class="details">
+          <div class="item">
+            <b>Email</b>
+            <a href="mailto:erika.l@jurny.com">erika.l@jurny.com</a>
+          </div>
+          <div class="item">
+            <b>Web</b>
+            <a href="https://www.jurny.com" target="_blank" rel="noopener noreferrer">www.jurny.com</a>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="footer-block">
+            <div class="footer-label">Let's connect</div>
+            <div class="footer-actions">
+              <a class="icon-link" href="https://www.linkedin.com/in/erika-lozano-villarreal/" target="_blank" rel="noopener noreferrer" aria-label="Personal LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A2.02 2.02 0 1 0 5.3 7.04 2.02 2.02 0 0 0 5.25 3ZM20.44 12.72c0-3.49-1.86-5.11-4.34-5.11-2 0-2.9 1.1-3.4 1.87V8.5H9.31V20h3.39v-6.4c0-1.68.32-3.3 2.4-3.3 2.04 0 2.07 1.91 2.07 3.41V20h3.39v-7.28Z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-block company-block">
+            <div class="footer-label">Follow Jurny</div>
+            <div class="footer-actions">
+              <a class="icon-link" href="https://www.linkedin.com/company/jurny/" target="_blank" rel="noopener noreferrer" aria-label="Jurny LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A2.02 2.02 0 1 0 5.3 7.04 2.02 2.02 0 0 0 5.25 3ZM20.44 12.72c0-3.49-1.86-5.11-4.34-5.11-2 0-2.9 1.1-3.4 1.87V8.5H9.31V20h3.39v-6.4c0-1.68.32-3.3 2.4-3.3 2.04 0 2.07 1.91 2.07 3.41V20h3.39v-7.28Z"/>
+                </svg>
+              </a>
+
+              <a class="icon-link" href="https://www.instagram.com/jurnyinc/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm8.95 1.35a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3ZM12 6.86A5.14 5.14 0 1 1 6.86 12 5.14 5.14 0 0 1 12 6.86Zm0 1.8A3.34 3.34 0 1 0 15.34 12 3.34 3.34 0 0 0 12 8.66Z"/>
+                </svg>
+              </a>
+
+              <a class="icon-link" href="https://www.youtube.com/@jurnyinc" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M21.58 7.19a2.98 2.98 0 0 0-2.1-2.11C17.62 4.5 12 4.5 12 4.5s-5.62 0-7.48.58a2.98 2.98 0 0 0-2.1 2.11A31.3 31.3 0 0 0 2 12a31.3 31.3 0 0 0 .42 4.81 2.98 2.98 0 0 0 2.1 2.11c1.86.58 7.48.58 7.48.58s5.62 0 7.48-.58a2.98 2.98 0 0 0 2.1-2.11A31.3 31.3 0 0 0 22 12a31.3 31.3 0 0 0-.42-4.81ZM10.2 15.1V8.9L15.65 12 10.2 15.1Z"/>
+                </svg>
+              </a>
+
+              <a class="cta" href="https://www.jurny.com/demo" target="_blank" rel="noopener noreferrer">Book a demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
